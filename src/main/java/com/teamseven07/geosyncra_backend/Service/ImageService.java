@@ -27,12 +27,13 @@ public class ImageService {
 
 
 
-    public ImageEntity addProduct(String name, String description, String location, MultipartFile imageFile) throws IOException {
+    public ImageEntity addProduct(String name, String description, String location, String geoLocation, MultipartFile imageFile) throws IOException {
 
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setName(name);
         imageEntity.setDescription(description);
         imageEntity.setLocation(location);
+        imageEntity.setGeoLocation(geoLocation);
         imageEntity.setImageName(imageFile.getOriginalFilename());
         imageEntity.setImageType(imageFile.getContentType());
         imageEntity.setImageData(imageFile.getBytes());
@@ -48,8 +49,11 @@ public class ImageService {
 
         // Map ImageEntity to ImageDto
         return imagePage.stream()
-                .map(image -> new ImageDto(image.getName(), image.getLocation(), image.getDescription()))
+                .map(image -> new ImageDto(image.getId(), image.getName(), image.getLocation(), image.getDescription()))
                 .collect(Collectors.toList());
     }
 
+    public String getGeoLocation(Integer id) {
+        return imageRepository.findById(id).get().getGeoLocation();
+    }
 }

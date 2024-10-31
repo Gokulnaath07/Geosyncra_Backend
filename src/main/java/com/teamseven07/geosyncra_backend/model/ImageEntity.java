@@ -23,6 +23,9 @@ public class ImageEntity {
     @NotNull
     private String location;
 
+    @NotNull
+    private String geoLocation;
+
     private String imageName;
     private String imageType;
 

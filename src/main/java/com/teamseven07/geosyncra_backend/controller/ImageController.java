@@ -36,9 +36,10 @@ public class ImageController {
     public ResponseEntity<?> uploadImages(@RequestParam("name") String name,
                                           @RequestParam("description") String description,
                                           @RequestParam("location") String location,
+                                          @RequestParam("geoLocation") String geoLocation,
                                           @RequestParam("imageFile") MultipartFile imageFile) {
         try {
-            ImageEntity savedImageEntity = imageService.addProduct(name, description, location, imageFile);
+            ImageEntity savedImageEntity = imageService.addProduct(name, description, location, geoLocation, imageFile);
             return new ResponseEntity<>(savedImageEntity, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,6 +79,11 @@ public class ImageController {
     }
 
 
+    @GetMapping("images/{id}/geoLocation")
+    public ResponseEntity<String> getGeoLocation(@PathVariable Integer id) {
+        String geoLocation = imageService.getGeoLocation(id);
+        return new ResponseEntity<>(geoLocation, HttpStatus.OK);
+    }
 
 
 }
