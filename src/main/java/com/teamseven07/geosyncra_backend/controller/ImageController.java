@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500") 
+@CrossOrigin(origins = "http://127.0.0.1:5501")
 public class ImageController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class ImageController {
                                           @RequestParam("geoLocation") String geoLocation,
                                           @RequestParam("imageFile") MultipartFile imageFile) {
         try {
-            ImageEntity savedImageEntity = imageService.addProduct(name, description, location, geoLocation, imageFile);
+            ImageEntity savedImageEntity = imageService.addProduct(name, description, location.toLowerCase(), geoLocation, imageFile);
             return new ResponseEntity<>(savedImageEntity, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
