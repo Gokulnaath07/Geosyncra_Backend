@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5501")
+@CrossOrigin(origins = "*")
 public class ImageController {
 
     @Autowired
