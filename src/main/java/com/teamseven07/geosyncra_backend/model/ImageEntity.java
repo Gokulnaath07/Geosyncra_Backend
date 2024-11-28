@@ -1,10 +1,13 @@
 package com.teamseven07.geosyncra_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name="testimages")
@@ -26,9 +29,8 @@ public class ImageEntity {
     @NotNull
     private String geoLocation;
 
-    private String imageName;
-    private String imageType;
-
-    @Lob
-    private byte[] imageData;
+    // One-to-many relationship with ImageChildEntity
+    @OneToMany(mappedBy = "imageEntity", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<ImageChildEntity> imageChildren;
 }
